@@ -48,8 +48,6 @@
         <label for="search">search :
             <input type="search" id="search">
         </label>
-        <button id="submit" onclick="myFunction()">filter</button>
-        {{-- <button  value="filter"> --}}
         
         <table class="table table-striped table-bordered" id="myTable">
            
@@ -70,17 +68,19 @@
     </main>
    
 <script>
-    // var search="";
- $('#search').keyup(function() {
-     var searchTerm=$('#search').val();
+    $(document).ready(function(){
+    var searchTerm="";
+ $('input').keyup(function() {
+      searchTerm=$('#search').val();
     alert(searchTerm);
     var table =  $('#myTable').DataTable({
           processing: true,
           serverSide: true,
+          "bDestroy": true,
           ajax: {
             url: '/search-term',
             data: function(d) {
-                d.search = $('#search').val(); 
+                d.search = searchTerm
             }},
           columns: [
                    { data: 'User_Id', name: 'User_Id' },
@@ -92,36 +92,10 @@
                    { data: 'Date_of_birth', name: 'Date_of_birth' },
                    { data: 'Job_Title', name: 'Job_Title' }
                 ]
+                
        });
     });
-//    function myFunction(){
-   
-//     alert("search");
-//     var table =  $('#myTable').DataTable({
-//           processing: true,
-//           serverSide: true,
-//           ajax: {
-//             url: '/search-term',
-//             data: function(d) {
-//                 d.search = "Female" 
-//             }},
-//           columns: [
-//                    { data: 'User_Id', name: 'User_Id' },
-//                    { data: 'First_Name', name: 'First_Name' },
-//                    { data: 'Last_Name', name: 'Last_Name' },
-//                    { data: 'Sex', name: 'Sex' },
-//                    { data: 'Email', name: 'Email' },
-//                    { data: 'Phone', name: 'Phone' },
-//                    { data: 'Date_of_birth', name: 'Date_of_birth' },
-//                    { data: 'Job_Title', name: 'Job_Title' }
-//                 ]
-//        });
-//     }
-//     $(function(){
-       
-  
-
-//     });
+    });
 </script>
 
 </body>
